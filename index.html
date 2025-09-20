@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Menu - Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sample/css/style.css">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Rajdhani', 'Orbitron', Arial, sans-serif;
+        }
+        body {
+            /* Hilangkan background CSS lama */
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #bg-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain; /* Pastikan gambar tidak terpotong */
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+        }
+        .menu-container {
+            position: relative;
+            z-index: 1;
+            background: transparent; /* transparan */
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            padding: 48px 32px 32px 32px;
+            text-align: center;
+            min-width: 320px;
+        }
+        .menu-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2196f3;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            background: transparent; /* transparan */
+            animation: titleMove 2.2s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
+        }
+        @keyframes titleMove {
+            0% { transform: translateY(0); letter-spacing: 2px; }
+            60% { transform: translateY(-8px) scale(1.04); letter-spacing: 4px; }
+            100% { transform: translateY(0); letter-spacing: 2px; }
+        }
+        .menu-subtitle {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 32px;
+            background: transparent; /* transparan */
+            animation: subtitleFade 2.8s ease-in-out infinite alternate;
+        }
+        @keyframes subtitleFade {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; transform: scale(1.03); }
+            100% { opacity: 1; }
+        }
+        .menu-btn {
+            font-size: 1.2rem;
+            padding: 14px 38px;
+            background: transparent; /* transparan */
+            color: #2196f3;
+            border: 2px solid #2196f3;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: none;
+            transition: background 0.2s, color 0.2s;
+            animation: btnPulse 1.4s cubic-bezier(.68,-0.55,.27,1.55) infinite alternate;
+        }
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 0 rgba(255,140,0,0.18); transform: scale(1); }
+            60% { box-shadow: 0 0 18px 4px rgba(255,140,0,0.28); transform: scale(1.07); }
+            100% { box-shadow: 0 0 0 rgba(255,140,0,0.18); transform: scale(1); }
+        }
+        .menu-title, .menu-subtitle, .menu-btn {
+            color: orange !important;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.28), 0 0 2px #fff;
+        }
+        .menu-btn {
+            border: 2px solid orange;
+        }
+        .menu-btn:hover {
+            background: rgba(255,140,0,0.12);
+            color: #ff9800;
+            border-color: #ff9800;
+        }
+    </style>
+    <script>
+    // Atur ukuran body sesuai gambar setelah gambar dimuat
+    window.addEventListener('DOMContentLoaded', function() {
+        const bgImg = document.getElementById('bg-img');
+        bgImg.onload = function() {
+            document.body.style.width = bgImg.naturalWidth + 'px';
+            document.body.style.height = bgImg.naturalHeight + 'px';
+            document.body.style.minWidth = bgImg.naturalWidth + 'px';
+            document.body.style.minHeight = bgImg.naturalHeight + 'px';
+        };
+    });
+    </script>
+</head>
+<body>
+    <img id="bg-img" src="public/assets/mainmenus/mainmenu.jfif" alt="Background" />
+    <div class="menu-container">
+        <div class="menu-title">Portfolio 3D Maze</div>
+        <div class="menu-subtitle">Explore my interactive portfolio in a 3D maze world.<br>Press Start to begin!</div>
+        <button class="menu-btn" onclick="window.location.href='maze.html'">Start Portfolio</button>
+    </div>
+</body>
+</html>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+    <script>
+    // Efek bola 3D berputar di background
+    const container = document.getElementById('three-bg');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.z = 3;
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    // Bola transparan dengan warna orange
+    const geometry = new THREE.SphereGeometry(1, 32, 32);
+    const material = new THREE.MeshStandardMaterial({
+        color: 0xff9800,
+        transparent: true,
+        opacity: 0.35,
+        roughness: 0.5,
+        metalness: 0.2
+    });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    // Pencahayaan lembut
+    const ambient = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambient);
+    const dir = new THREE.DirectionalLight(0xff9800, 0.6);
+    dir.position.set(2,2,2);
+    scene.add(dir);
+
+    function animate() {
+        sphere.rotation.y += 0.008;
+        sphere.rotation.x += 0.004;
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth/window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    </script>
+</body>
+</html>

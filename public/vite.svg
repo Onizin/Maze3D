@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#0a0a0a" stroke="#00d4ff" stroke-width="2"/>
+  
+  <!-- Portfolio icon representation -->
+  <!-- Laptop/Computer screen -->
+  <rect x="18" y="22" width="28" height="18" rx="2" fill="#00d4ff" opacity="0.8"/>
+  <rect x="20" y="24" width="24" height="14" fill="#0a0a0a"/>
+  
+  <!-- Code brackets -->
+  <text x="23" y="33" fill="#00d4ff" font-family="monospace" font-size="8" font-weight="bold">&lt;/&gt;</text>
+  
+  <!-- Laptop base -->
+  <ellipse cx="32" cy="42" rx="16" ry="2" fill="#00d4ff" opacity="0.6"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="45" cy="18" r="1.5" fill="#7b68ee"/>
+  <circle cx="50" cy="20" r="1" fill="#ff6b35"/>
+  <circle cx="47" cy="15" r="0.8" fill="#00d4ff"/>
+</svg>
